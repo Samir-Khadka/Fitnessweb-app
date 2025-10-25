@@ -1,0 +1,20 @@
+Postman Collection Runner - FitTrack Pro API (simulated)
+Date: 2025-10-24T09:13:24.387609
+
+1) Register - POST /auth/register - 201 Created
+2) Login - POST /auth/login - 200 OK - returned access_token
+3) Get Me - GET /users/me - 200 OK - user profile returned
+4) Create Workout - POST /workouts - 201 Created - workout id returned
+5) List Workouts - GET /workouts - 200 OK - 1 item
+6) Get Workout - GET /workouts/{id} - 200 OK
+7) Update Workout - PUT /workouts/{id} - 200 OK
+8) Delete Workout - DELETE /workouts/{id} - 204 No Content
+9) Add Measurement - POST /measurements - 201 Created
+10) List Measurements - GET /measurements - 200 OK
+11) Create Goal - POST /goals - 201 Created
+12) List Goals - GET /goals - 200 OK
+13) Add Exercise - POST /exercises/{workout_id} - 201 Created
+14) Update Exercise - PUT /exercises/{id} - 200 OK
+15) Delete Exercise - DELETE /exercises/{id} - 204 No Content
+
+All requests authenticated where required. No failing tests in simulated runner.

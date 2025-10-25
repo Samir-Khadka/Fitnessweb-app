@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.11]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then python -m pip install -r requirements.txt; fi
+
+      - name: Syntax checks (compile)
+        run: python -m compileall -q .
+
+      - name: Run pytest
+        run: python -m pytest -q
+
+      - name: Run smoke runner
+        env:
+          PYTHONPATH: |
+            ${GITHUB_WORKSPACE}/fittrack_pro_backend:${GITHUB_WORKSPACE}/fittrack_pro_backend_extra
+        run: |
+          python run_smoke_full.py --timeout 45

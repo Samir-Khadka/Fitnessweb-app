@@ -1,0 +1,36 @@
+[
+  {
+    "_id": {
+      "$oid": "000000000000000000000011"
+    },
+    "user_id": {
+      "$oid": "000000000000000000000001"
+    },
+    "type": "running",
+    "start_time": "2025-10-24T09:13:24.383513",
+    "duration_minutes": 30,
+    "distance_km": 5,
+    "calories_burned": 300,
+    "route": [],
+    "exercises": [],
+    "notes": "Morning run",
+    "created_at": "2025-10-24T09:13:24.383513"
+  },
+  {
+    "_id": {
+      "$oid": "000000000000000000000012"
+    },
+    "user_id": {
+      "$oid": "000000000000000000000002"
+    },
+    "type": "gym",
+    "start_time": "2025-10-24T09:13:24.383513",
+    "duration_minutes": 45,
+    "distance_km": 0,
+    "calories_burned": 400,
+    "route": [],
+    "exercises": [],
+    "notes": "Leg day",
+    "created_at": "2025-10-24T09:13:24.383513"
+  }
+]

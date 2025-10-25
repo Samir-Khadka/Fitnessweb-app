@@ -1,0 +1,37 @@
+FitTrack Pro - Demo Video Script (max 5:00)
+
+Total time: 5:00
+
+0:00 - 0:20 (20s) - Introduction
+- "Hi, I'm [Your Name]. This is FitTrack Pro, a backend API built with Flask and MongoDB for tracking workouts, measurements and goals. This submission implements full CRUD, authentication, aggregation analytics and automated tests as required by COM661."
+
+0:20 - 0:40 (20s) - Dataset & Collections
+- "The database contains Users, Workouts, Measurements, Goals and Exercises. I exported each collection with mongoexport as JSON files."
+
+0:40 - 1:40 (60s) - Postman Demo (Authentication + CRUD)
+- Show Postman collection (imported)
+- 0:40 - 0:50 Register (POST /auth/register)
+- 0:50 - 1:00 Login (POST /auth/login) -> copy token to {jwt}
+- 1:00 - 1:10 Create Workout (POST /workouts)
+- 1:10 - 1:20 List Workouts (GET /workouts)
+- 1:20 - 1:30 Add Measurement (POST /measurements)
+- 1:30 - 1:40 Create Goal (POST /goals)
+
+1:40 - 2:40 (60s) - Code walkthrough (key files)
+- app.py (20s) - blueprint registration, config
+- routes/auth.py (20s) - registration/login + JWT
+- routes/workouts.py (20s) - CRUD + aggregation example weekly_distance
+
+2:40 - 3:30 (50s) - Tests & Exports
+- Run pytest (show output)
+- Show mongoexport commands and the generated JSON files
+
+3:30 - 4:30 (60s) - How to run locally & submission contents
+- Show README steps, requirements.txt, and checklist of submission items
+
+4:30 - 5:00 (30s) - Conclusion
+- "That completes the demo. All source code, JSON exports, Postman collection, test outputs and documentation are included in the submission zip. Thank you."
+
+Notes:
+- Keep terminal and Postman windows visible, zoom into request/response for key calls.
+- Keep narration concise to stay within 5 minutes.

@@ -1,0 +1,405 @@
+{
+  "info": {
+    "name": "FitTrack Pro API - Full",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Register",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"student@example.com\",\n  \"password\": \"pass123\",\n  \"name\": \"Student\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/auth/register",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "auth",
+            "register"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"student@example.com\",\n  \"password\": \"pass123\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/auth/login",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "auth",
+            "login"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Me",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{base_url}}/users/me",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "users",
+            "me"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create Workout",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"type\": \"running\",\n  \"distance_km\": 5,\n  \"duration_minutes\": 30\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/workouts",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "workouts"
+          ]
+        }
+      }
+    },
+    {
+      "name": "List Workouts",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{base_url}}/workouts",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "workouts"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Workout",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{base_url}}/workouts/:id",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "workouts",
+            ":id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Update Workout",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"notes\": \"evening run\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/workouts/:id",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "workouts",
+            ":id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Delete Workout",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{base_url}}/workouts/:id",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "workouts",
+            ":id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Add Measurement",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"type\": \"weight\",\n  \"value\": 72,\n  \"unit\": \"kg\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/measurements",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "measurements"
+          ]
+        }
+      }
+    },
+    {
+      "name": "List Measurements",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{base_url}}/measurements",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "measurements"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create Goal",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"goal_type\": \"run_distance\",\n  \"target_value\": 10,\n  \"target_unit\": \"km\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/goals",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "goals"
+          ]
+        }
+      }
+    },
+    {
+      "name": "List Goals",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{base_url}}/goals",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "goals"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Add Exercise to Workout",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Squat\",\n  \"sets\": [\n    {\n      \"reps\": 5,\n      \"weight_kg\": 100\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/exercises/:workout_id",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "exercises",
+            ":workout_id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Update Exercise",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sets\": [\n    {\n      \"reps\": 5,\n      \"weight_kg\": 105\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/exercises/:id",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "exercises",
+            ":id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Delete Exercise",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{base_url}}/exercises/:id",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "exercises",
+            ":id"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000"
+    },
+    {
+      "key": "jwt",
+      "value": ""
+    }
+  ]
+}
