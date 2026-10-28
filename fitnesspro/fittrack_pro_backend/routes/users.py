@@ -22,6 +22,11 @@ def me():
 @users_bp.route('/<id>', methods=['GET'])
 @jwt_required
 def get_user(id):
+    # Ownership: a user may only read their own record, never another
+    # user's, even with a valid token. Checked before any DB lookup so a
+    # non-owner learns nothing about whether the id exists.
+    if id != current_user_id():
+        return {'msg':'forbidden'}, 403
     db = get_db().get_default_database()
     try:
         user = db.users.find_one({'_id': ObjectId(id)}, {'password_hash':0})
@@ -34,13 +39,20 @@ def get_user(id):
 @users_bp.route('/<id>', methods=['PUT'])
 @jwt_required
 def update_user(id):
+    # Ownership: only the account owner may update their own record.
+    if id != current_user_id():
+        return {'msg':'forbidden'}, 403
     db = get_db().get_default_database()
     body = request.get_json() or {}
     allowed = {'name','height_cm','weight_kg','body_fat_pct'}
     update = {k: body[k] for k in body if k in allowed}
     if not update:
         return {'msg':'nothing to update'}, 400
-    res = db.users.update_one({'_id': ObjectId(id)}, {'$set': update})
+    try:
+        oid = ObjectId(id)
+    except Exception:
+        return {'msg':'invalid id'}, 400
+    res = db.users.update_one({'_id': oid}, {'$set': update})
     if res.matched_count == 0:
         return {'msg':'not found'}, 404
     return {'msg':'updated'}, 200
@@ -48,8 +60,15 @@ def update_user(id):
 @users_bp.route('/<id>', methods=['DELETE'])
 @jwt_required
 def delete_user(id):
+    # Ownership: only the account owner may delete their own record.
+    if id != current_user_id():
+        return {'msg':'forbidden'}, 403
     db = get_db().get_default_database()
-    res = db.users.delete_one({'_id': ObjectId(id)})
+    try:
+        oid = ObjectId(id)
+    except Exception:
+        return {'msg':'invalid id'}, 400
+    res = db.users.delete_one({'_id': oid})
     if res.deleted_count == 0:
         return {'msg':'not found'}, 404
     return '', 204
