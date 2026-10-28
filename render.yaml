@@ -15,3 +15,18 @@ services:
         sync: false
       - key: JWT_SECRET_KEY
         generateValue: true
+
+  # Static frontend for the React app in fitnesspro/web.
+  # VITE_API_URL is inlined by Vite at build time, so the built site
+  # talks to the live API above. No SPA rewrite rules needed: the app
+  # navigates with in-app state, not browser routes.
+  - type: web
+    name: fittrack-web
+    env: static
+    plan: free
+    rootDir: fitnesspro/web
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://fittrack-api-h8qz.onrender.com
