@@ -13,6 +13,12 @@ def create_app():
     app.config.from_mapping({
         "MONGO_URI": __import__('os').environ.get("MONGO_URI", "mongodb://localhost:27017/fittrack_db"),
         "JWT_SECRET_KEY": __import__('os').environ.get("JWT_SECRET_KEY", "change-this-secret"),
+        # The library default is 15 minutes, which expires mid-workout
+        # (the rest timer alone outlasts it). 7 days by default, or
+        # JWT_ACCESS_TOKEN_EXPIRES_DAYS to override. Existing tests log
+        # in and call immediately, so they are unaffected.
+        "JWT_ACCESS_TOKEN_EXPIRES": __import__('datetime').timedelta(
+            days=int(__import__('os').environ.get("JWT_ACCESS_TOKEN_EXPIRES_DAYS", "7"))),
     })
     CORS(app)
     # initialize DB client inside an application context so flask.g is available

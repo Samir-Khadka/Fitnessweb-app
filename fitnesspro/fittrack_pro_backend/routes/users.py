@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from utils.db import get_db
+from utils.json_utils import to_json_safe
 from utils.jwt_auth import jwt_required, current_user_id
 from bson.objectid import ObjectId
 
@@ -13,8 +14,10 @@ def me():
     user = db.users.find_one({'_id': ObjectId(uid)}, {'password_hash':0})
     if not user:
         return {'msg':'not found'}, 404
-    user['id'] = str(user['_id'])
-    return jsonify(user)
+    # to_json_safe: the raw doc carries an ObjectId _id, which Flask's
+    # JSON provider cannot serialize (500). Every other route already
+    # serializes this way, so /users/me now matches them.
+    return jsonify(to_json_safe(user))
 
 @users_bp.route('/<id>', methods=['GET'])
 @jwt_required
@@ -26,8 +29,7 @@ def get_user(id):
         return {'msg':'invalid id'}, 400
     if not user:
         return {'msg':'not found'}, 404
-    user['id'] = str(user['_id'])
-    return jsonify(user)
+    return jsonify(to_json_safe(user))
 
 @users_bp.route('/<id>', methods=['PUT'])
 @jwt_required

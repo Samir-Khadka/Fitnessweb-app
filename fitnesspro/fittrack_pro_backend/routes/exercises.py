@@ -7,6 +7,27 @@ import datetime
 
 exercises_bp = Blueprint('exercises', __name__)
 
+@exercises_bp.route('', methods=['GET'])
+@jwt_required
+def list_exercises():
+    # NEW (for the web app): a workout's `exercises` field only holds
+    # exercise IDs, and no endpoint returned the exercise documents, so
+    # a saved workout's exercises were unreadable. This lists them.
+    # Ownership is checked against the workout; other endpoints keep
+    # their existing (unchecked) behaviour unchanged.
+    db = get_db().get_default_database()
+    workout_id = request.args.get('workout_id')
+    if not workout_id:
+        return {'msg': 'workout_id query parameter required'}, 400
+    try:
+        workout = db.workouts.find_one({'_id': ObjectId(workout_id)})
+    except Exception:
+        return {'msg': 'invalid id'}, 400
+    if not workout or str(workout.get('user_id')) != current_user_id():
+        return {'msg': 'not found'}, 404
+    cur = db.exercises.find({'workout_id': ObjectId(workout_id)}).sort('created_at', 1)
+    return jsonify([to_json_safe(e) for e in cur])
+
 @exercises_bp.route('/<workout_id>', methods=['POST'])
 @jwt_required
 def add_exercise(workout_id):
