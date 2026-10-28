@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: fittrack-api
+    runtime: python
+    plan: free
+    rootDir: fitnesspro/fittrack_pro_backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn wsgi:app --bind 0.0.0.0:$PORT --workers 1 --timeout 120
+    healthCheckPath: /
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.0"
+      # Set in the Render dashboard, never in this file.
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET_KEY
+        generateValue: true
